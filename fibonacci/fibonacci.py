@@ -30,14 +30,10 @@ def optimal_solution(number: int):
 
 
 if __name__ == "__main__":
-    print("Fibonnaci p/ número 2:")
-    print("Recursivo:", recursive_solution(number=2))
-    print("Ótimo:", optimal_solution(number=2))
+    number = int(input("Insira um número: "))
 
-    print("Fibonnaci p/ número 10:")
-    print("Recursivo:", recursive_solution(number=10))
-    print("Ótimo:", optimal_solution(number=10))
+    print("")
+    print(f"Calculando Fibonnaci p/ número {number}:")
 
-    print("Fibonnaci p/ número 16:")
-    print("Recursivo:", recursive_solution(number=16))
-    print("Ótimo:", optimal_solution(number=16))
+    print("Método Recursivo:", recursive_solution(number))
+    print("Método Ótimo:", optimal_solution(number))
