@@ -39,9 +39,6 @@ A solução se encontra na pasta sql, e é composta de um arquivo apenas.
 A proposta do problema era bem simples: "consulta SQL para encontrar o número total de pedidos feitos por cada cliente em uma tabela chamada 'Pedidos', incluindo apenas os clientes que fizeram mais de 5 pedidos". Deste modo, a consulta foi escrita de modo simples e suscinta.
 
 
-## Pergunta Lista X Tupla
-
-
 ## CRUD / FastAPI
 
 Esse CRUD tem como objetivo simular um serviço simples para gerenciar informações de clientes. Com isso, foram criadas rotas para a criação de novos clientes, e para a busca de clientes.
