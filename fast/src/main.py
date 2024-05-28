@@ -34,7 +34,7 @@ def get_client(client_id: int, db: Session = Depends(get_db)):
 def create_client(client: CreateClientRequest, db: Session = Depends(get_db)):
     db_client = ClientRepository.get_client_by_email(db, email=client.email)
     if db_client:
-        raise HTTPException(status_code=400, detail="Email já cadastrado")
+        raise HTTPException(status_code=400, detail="Email ja cadastrado")
 
     return ClientRepository.create_client(db=db, client=client)
 

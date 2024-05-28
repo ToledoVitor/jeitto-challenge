@@ -37,7 +37,7 @@ client = TestClient(app)
 def test_create_client():
     # Arrange
     json = {
-        "name": "José Teste",
+        "name": "Jose Teste",
         "email": "jose@gmail.com",
         "phone": "1199998888",
     }
@@ -49,7 +49,7 @@ def test_create_client():
     assert response.status_code == 200
 
     json = response.json()
-    assert json["name"] == "José Teste"
+    assert json["name"] == "Jose Teste"
     assert json["email"] == "jose@gmail.com"
     assert json["phone"] == "1199998888"
 
@@ -74,7 +74,7 @@ def test_create_client_exists():
 
     # Assert
     assert response.status_code == 400
-    assert response.json() == {"detail": "Email já cadastrado"}
+    assert response.json() == {"detail": "Email ja cadastrado"}
 
     client.delete(f"/clients/{client_id}")
 
