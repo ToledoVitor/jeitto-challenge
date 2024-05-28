@@ -76,7 +76,7 @@ Caso prefira rodar diretamente pela IDE do VSCode assim como eu, você pode adic
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "src.main:app",
+                "fast.src.main:app",
                 "--reload"
             ],
             "jinja": true
