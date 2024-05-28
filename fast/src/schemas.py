@@ -1,14 +1,15 @@
 from pydantic import BaseModel
 
 
-class CreateClient(BaseModel):
+class BaseClient(BaseModel):
     name: str
     email: str
     phone: str
 
 
-class Client(BaseModel):
+class CreateClientRequest(BaseClient):
+    ...
+
+
+class ClientResponse(BaseClient):
     id: int
-    name: str
-    email: str
-    phone: str

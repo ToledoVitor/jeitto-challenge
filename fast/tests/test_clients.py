@@ -2,14 +2,13 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-
 from src.database import Base
 from src.main import app, get_db
-from src.models import Client
 
 
 # TEST DATABASE SETUP
-SQLALCHEMY_DATABASE_URL = "sqlite:///./fast/tests/test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./fast/tests/test_db.sqlite3"
+
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
@@ -26,8 +25,7 @@ def mock_get_db():
     try:
         yield db
     finally:
-        db.query(Client).delete()
-        db.close()
+        db.flush()
 
 
 app.dependency_overrides[get_db] = mock_get_db
@@ -37,14 +35,17 @@ client = TestClient(app)
 
 # APP TESTING
 def test_create_client():
-    response = client.post(
-        "/clients",
-        json={
-            "name": "José Teste",
-            "email": "jose@gmail.com",
-            "phone": "1199998888",
-        },
-    )
+    # Arrange
+    json = {
+        "name": "José Teste",
+        "email": "jose@gmail.com",
+        "phone": "1199998888",
+    }
+
+    # Act
+    response = client.post("/clients", json=json)
+
+    # Assert
     assert response.status_code == 200
 
     json = response.json()
@@ -52,50 +53,55 @@ def test_create_client():
     assert json["email"] == "jose@gmail.com"
     assert json["phone"] == "1199998888"
 
+    client.delete(f"/clients/{json["id"]}")
+
 
 def test_create_client_exists():
-    response = client.post(
-        "/clients",
-        json={
-            "name": "Joao Teste",
-            "email": "joao@gmail.com",
-            "phone": "1199998888",
-        },
-    )
-    assert response.status_code == 200
+    # Arrange
+    json = {
+        "name": "Joao Teste",
+        "email": "joao@gmail.com",
+        "phone": "1199998888",
+    }
 
-    response = client.post(
-        "/clients",
-        json={
-            "name": "Joao Teste",
-            "email": "joao@gmail.com",
-            "phone": "1199998888",
-        },
-    )
+    # Act
+    response = client.post("/clients", json=json)
+    assert response.status_code == 200
+    client_id = response.json()["id"]
+
+    response = client.post("/clients", json=json)
+
+    # Assert
     assert response.status_code == 400
     assert response.json() == {"detail": "Email já cadastrado"}
 
+    client.delete(f"/clients/{client_id}")
+
 
 def test_client_exists():
-    res = client.post(
-        "/clients",
-        json={
-            "name": "Vitor Teste",
-            "email": "vitor@gmail.com",
-            "phone": "1199998888",
-        },
-    )
-    assert res.status_code == 200
+    # Arrange
+    json = {
+        "name": "Vitor Teste",
+        "email": "vitor@gmail.com",
+        "phone": "1199998888",
+    }
 
-    client_id = res.json()["id"]
-    response = client.get(f"/clients/{client_id}")
+    # Act
+    create_res = client.post("/clients", json=json)
+    assert create_res.status_code == 200
 
-    assert response.status_code == 200
+    client_id = create_res.json()["id"]
+    error_res = client.get(f"/clients/{client_id}")
 
-    json = response.json()
+    # Assert
+    assert error_res.status_code == 200
+
+    json = error_res.json()
     assert json["name"] == "Vitor Teste"
     assert json["email"] == "vitor@gmail.com"
     assert json["phone"] == "1199998888"
+
+    client.delete(f"/clients/{client_id}")
 
 
 def test_client_dont_exists():
