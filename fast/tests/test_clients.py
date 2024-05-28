@@ -2,8 +2,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-from src.database import Base
-from src.main import app, get_db
+from ..src.database import Base
+from ..src.main import app, get_db
 
 
 # TEST DATABASE SETUP

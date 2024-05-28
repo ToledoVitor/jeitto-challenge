@@ -42,7 +42,6 @@ A proposta do problema era bem simples: "consulta SQL para encontrar o número t
 ## Pergunta Lista X Tupla
 
 
-
 ## CRUD / FastAPI
 
 Esse CRUD tem como objetivo simular um serviço simples para gerenciar informações de clientes. Com isso, foram criadas rotas para a criação de novos clientes, e para a busca de clientes.
@@ -51,12 +50,21 @@ Esse CRUD tem como objetivo simular um serviço simples para gerenciar informaç
 
 Esse projeto usa o [poetry](https://python-poetry.org/docs/) para gerenciar todas as dependências. Antes de começar você irá precisará ter instalado o python 3.11 ou superior e o poetry.
 
+Com o poetry instalado, rode na raíz do projeto os seguintes comandos:
+
+```bash
+poetry shell
+poetry install
+```
+
+Isso irá criar a virtualenv e instalar todos os pacotes necessários.
+
 ### Rodando o proejto
 
 Para rodar o projeto, a partir da raiz do repositório rode o seguinte comando:
 
 ~~~bash  
-  uvicorn src.main:app
+  uvicorn fast.src.main:app
 ~~~
 
 Caso prefira rodar diretamente pela IDE do VSCode assim como eu, você pode adicionar essa configuração ao seu arquivo launch.json:
@@ -106,8 +114,8 @@ Ps. Lembre-se de primeiro criar o cliente antes de buscá-lo.
 
 ### Testes
 
-Os teste unitários ficam dentro da pasta tests/ e foram escritos usando pytest. Para rodá-los direto da linha de comando rode o comando:
+Os teste unitários ficam dentro da pasta tests/ e foram escritos usando pytest. Para rodá-los direto da linha de comando acesse a raíz do projeto e rode o comando:
 
 ~~~bash
-python -m pytest
+pytest fast/
 ~~~

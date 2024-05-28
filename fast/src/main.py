@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-from src.repository import ClientRepository
-from src.schemas import ClientResponse, CreateClientRequest
+from .repository import ClientRepository
+from .schemas import ClientResponse, CreateClientRequest
 
 from . import models
 from .database import SessionLocal, engine
