@@ -53,7 +53,8 @@ def test_create_client():
     assert json["email"] == "jose@gmail.com"
     assert json["phone"] == "1199998888"
 
-    client.delete(f"/clients/{json["id"]}")
+    client_id = json["id"]
+    client.delete(f"/clients/{client_id}")
 
 
 def test_create_client_exists():
